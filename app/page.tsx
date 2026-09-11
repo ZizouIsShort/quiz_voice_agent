@@ -42,14 +42,36 @@ const FileUploadForm = () => {
 
     console.log("PDF CONTENT:");
     console.log(fullText);
+    const response = await fetch('/api/process', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ text: fullText }),
+    });
+    const data = await response.json();
+    console.log(data);
   };
 
   return (
-    <div>
-      <h2>File Upload</h2>
-      <form onSubmit={handleSubmit}>
-        <input type="file" onChange={handleFileChange} />
-        <button type="submit">Upload</button>
+    <div className="max-w-md mx-auto mt-10 p-6 border rounded-xl shadow-md bg-white">
+      <h2 className="text-2xl font-semibold mb-4 text-gray-800">
+        File Upload
+      </h2>
+
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <input
+          type="file"
+          onChange={handleFileChange}
+          className="w-full border border-gray-300 rounded-lg p-2 file:mr-4 file:py-2 file:px-4 file:border-0 file:rounded-md file:bg-blue-600 file:text-white file:cursor-pointer hover:file:bg-blue-700"
+        />
+
+        <button
+          type="submit"
+          className="bg-blue-600 text-white py-2 px-4 rounded-lg font-medium hover:bg-blue-700 transition-colors"
+        >
+          Upload
+        </button>
       </form>
     </div>
   );
